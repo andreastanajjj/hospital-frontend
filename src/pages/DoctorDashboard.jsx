@@ -19,7 +19,7 @@ export default function DoctorDashboard() {
   // fetch assigned requests
   const fetchRequests = async () => {
     try {
-      const { data } = await axios.get("/api/doctor/requests",
+      const { data } = await axios.get("https://hospital-backend-r5bt.onrender.com/api/doctor/requests",
  {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -41,7 +41,7 @@ export default function DoctorDashboard() {
   const handleUpdate = async (id, destination, status) => {
     try {
       await axios.put(
-        `/api/doctor/requests/${id}`,
+        `https://hospital-backend-r5bt.onrender.com/api/doctor/requests${id}`,
         { destination, status },
         { headers: { Authorization: `Bearer ${token}` } },
       )

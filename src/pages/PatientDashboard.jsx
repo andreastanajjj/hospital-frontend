@@ -22,7 +22,8 @@ export default function PatientPanel() {
   // Fetch doctors & this patient's requests
   const fetchDoctors = async () => {
     try {
-      const { data } = await axios.get("/api/public/doctors")
+      const { data } = await axios.get("https://hospital-backend-r5bt.onrender.com/api/public/doctors")
+
       setDoctors(data)
     } catch {
       setError("Failed to load doctors")
@@ -31,9 +32,8 @@ export default function PatientPanel() {
 
   const fetchRequests = async () => {
     try {
-      const { data } = await axios.get("/api/patient/requests", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const { data } = await axios.get("https://hospital-backend-r5bt.onrender.com/api/patient/requests", { headers: { Authorization: `Bearer ${token}` } })
+
       setRequests(data)
     } catch {
       setError("Failed to load your appointments")
@@ -54,14 +54,8 @@ export default function PatientPanel() {
 
     try {
       // Only doctorId & reason go to the backend
-      await axios.post(
-        "/api/patient/requests",
-        {
-          doctorId: form.doctorId,
-          reason: form.reason,
-        },
-        { headers: { Authorization: `Bearer ${token}` } },
-      )
+      await axios.post("https://hospital-backend-r5bt.onrender.com/api/patient/requests", { doctorId: form.doctorId, reason: form.reason }, { headers: { Authorization: `Bearer ${token}` } })
+
 
       setSuccess("Appointment requested!")
       setForm({ doctorId: "", reason: "" })
@@ -78,9 +72,8 @@ export default function PatientPanel() {
     if (!confirm("Cancel this appointment?")) return
 
     try {
-      await axios.delete(`/api/patient/requests/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    await axios.delete(`https://hospital-backend-r5bt.onrender.com/api/patient/requests/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+
       setSuccess("Appointment canceled")
       await fetchRequests()
       setTimeout(() => setSuccess(""), 3000)

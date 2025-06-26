@@ -32,9 +32,8 @@ function AdminPanel() {
 
   const fetchDoctors = async () => {
     try {
-      const res = await axios.get("/api/admin/doctors", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const res = await axios.get("https://hospital-backend-r5bt.onrender.com/api/admin/doctors", { headers: { Authorization: `Bearer ${token}` } })
+
       setDoctors(res.data)
     } catch (err) {
       setError("Failed to load doctors")
@@ -55,9 +54,8 @@ function AdminPanel() {
     setSuccess("")
 
     try {
-      await axios.post("/api/admin/doctor", form, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+     await axios.post("https://hospital-backend-r5bt.onrender.com/api/admin/doctor", form, { headers: { Authorization: `Bearer ${token}` } })
+
 
       setForm({ name: "", email: "", password: "", specialization: "" })
       setSuccess("Doctor created successfully!")
@@ -75,9 +73,8 @@ function AdminPanel() {
     if (!window.confirm(`Are you sure you want to delete Dr. ${name}?`)) return
 
     try {
-      await axios.delete(`/api/admin/doctor/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    await axios.delete(`https://hospital-backend-r5bt.onrender.com/api/admin/doctor/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+
       setSuccess("Doctor deleted successfully!")
       fetchDoctors()
       setTimeout(() => setSuccess(""), 3000)
