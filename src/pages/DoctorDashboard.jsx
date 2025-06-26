@@ -41,7 +41,7 @@ export default function DoctorDashboard() {
   const handleUpdate = async (id, destination, status) => {
     try {
       await axios.put(
-        `https://hospital-backend-r5bt.onrender.com/api/doctor/requests${id}`,
+        `https://hospital-backend-r5bt.onrender.com/api/doctor/requests/${id}`,
         { destination, status },
         { headers: { Authorization: `Bearer ${token}` } },
       )
