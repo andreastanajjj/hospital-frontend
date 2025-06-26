@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import axios from "axios"
+import axios from "../api/axiosClient"
+
 import { Stethoscope, Users, Clock, CheckCircle, MapPin, User } from "lucide-react"
 import Layout from "../components/Layout"
 import LoadingSpinner from "../components/LoadingSpinner"
@@ -18,7 +19,8 @@ export default function DoctorDashboard() {
   // fetch assigned requests
   const fetchRequests = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/doctor/requests", {
+      const { data } = await axios.get("/api/doctor/requests",
+ {
         headers: { Authorization: `Bearer ${token}` },
       })
       setRequests(data)
@@ -39,7 +41,7 @@ export default function DoctorDashboard() {
   const handleUpdate = async (id, destination, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/doctor/requests/${id}`,
+        `/api/doctor/requests/${id}`,
         { destination, status },
         { headers: { Authorization: `Bearer ${token}` } },
       )

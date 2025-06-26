@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import axios from "axios"
+import axios from "../api/axiosClient"
+
 import { useNavigate } from "react-router-dom"
 
 function Login() {
@@ -18,7 +19,7 @@ function Login() {
     setError("")
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post("/api/auth/login", {
         email,
         password,
       })

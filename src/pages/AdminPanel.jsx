@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import axios from "axios"
+import axios from "../api/axiosClient"
+
 import Layout from "../components/Layout"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { FaUserMd, FaCheckCircle, FaStethoscope, FaTrash, FaShieldAlt } from "react-icons/fa"
@@ -31,7 +32,7 @@ function AdminPanel() {
 
   const fetchDoctors = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/admin/doctors", {
+      const res = await axios.get("/api/admin/doctors", {
         headers: { Authorization: `Bearer ${token}` },
       })
       setDoctors(res.data)
@@ -54,7 +55,7 @@ function AdminPanel() {
     setSuccess("")
 
     try {
-      await axios.post("http://localhost:5000/api/admin/doctor", form, {
+      await axios.post("/api/admin/doctor", form, {
         headers: { Authorization: `Bearer ${token}` },
       })
 
@@ -74,7 +75,7 @@ function AdminPanel() {
     if (!window.confirm(`Are you sure you want to delete Dr. ${name}?`)) return
 
     try {
-      await axios.delete(`http://localhost:5000/api/admin/doctor/${id}`, {
+      await axios.delete(`/api/admin/doctor/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setSuccess("Doctor deleted successfully!")

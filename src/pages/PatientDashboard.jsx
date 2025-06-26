@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import axios from "axios"
+import axios from "../api/axiosClient"
+
 import Layout from "../components/Layout"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { FaCalendarAlt, FaClock, FaCheck, FaTrash, FaUser, FaUserInjured } from "react-icons/fa"
@@ -21,7 +22,7 @@ export default function PatientPanel() {
   // Fetch doctors & this patient's requests
   const fetchDoctors = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/public/doctors")
+      const { data } = await axios.get("/api/public/doctors")
       setDoctors(data)
     } catch {
       setError("Failed to load doctors")
@@ -30,7 +31,7 @@ export default function PatientPanel() {
 
   const fetchRequests = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/patient/requests", {
+      const { data } = await axios.get("/api/patient/requests", {
         headers: { Authorization: `Bearer ${token}` },
       })
       setRequests(data)
@@ -54,7 +55,7 @@ export default function PatientPanel() {
     try {
       // Only doctorId & reason go to the backend
       await axios.post(
-        "http://localhost:5000/api/patient/requests",
+        "/api/patient/requests",
         {
           doctorId: form.doctorId,
           reason: form.reason,
@@ -77,7 +78,7 @@ export default function PatientPanel() {
     if (!confirm("Cancel this appointment?")) return
 
     try {
-      await axios.delete(`http://localhost:5000/api/patient/requests/${id}`, {
+      await axios.delete(`/api/patient/requests/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setSuccess("Appointment canceled")
